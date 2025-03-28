@@ -75,111 +75,114 @@ export default function AIDemos() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      {/* Header */}
-      <div className="relative w-full h-40 bg-neutral-900 flex items-center justify-center rounded-xl mb-6 overflow-hidden">
-        <h1 className="text-white text-3xl md:text-4xl font-bold z-10">
-          Nagarro AI Demo
-        </h1>
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="w-full h-full grid grid-cols-[repeat(50,1fr)] grid-rows-[repeat(10,1fr)]">
-            {Array.from({ length: 500 }).map((_, i) => (
-              <div
-                key={i}
-                className="w-full h-full bg-transparent animate-glowDot"
-                style={{ animationDelay: `${(i % 50) * 0.1}s` }}
-              ></div>
+    <div className="min-h-screen w-full bg-gray-50 p-4 sm:p-6 overflow-x-hidden">
+      {/* Fullscreen Cover Div */}
+      <div className="max-w-screen-2xl mx-auto">
+        {/* Header */}
+        <div className="relative w-full h-40 bg-neutral-900 flex items-center justify-center rounded-xl mb-6 overflow-hidden">
+          <h1 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold z-10 text-center">
+            Nagarro AI Demo
+          </h1>
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="w-full h-full grid grid-cols-[repeat(50,1fr)] grid-rows-[repeat(10,1fr)]">
+              {Array.from({ length: 500 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="w-full h-full bg-transparent animate-glowDot"
+                  style={{ animationDelay: `${(i % 50) * 0.1}s` }}
+                ></div>
+              ))}
+            </div>
+          </div>
+          <style dangerouslySetInnerHTML={{ __html: `
+            @keyframes glowDot {
+              0%, 100% { background-color: transparent; }
+              50% { background-color: rgba(0, 255, 255, 0.1); box-shadow: 0 0 2px rgba(0, 255, 255, 0.2); }
+            }
+            .animate-glowDot {
+              animation: glowDot 6s ease-in-out infinite;
+            }
+          ` }} />
+        </div>
+
+        {/* Active Filters Bar */}
+        {(selectedTechnologies.length > 0 || selectedDomains.length > 0) && (
+          <div className="mb-4 flex flex-wrap items-center gap-3">
+            <span className="text-sm font-medium">Active Filters:</span>
+            {[...selectedTechnologies, ...selectedDomains].map((tag) => (
+              <span key={tag} className="bg-gray-200 text-gray-800 text-xs px-3 py-1 rounded-full">
+                {tag}
+              </span>
+            ))}
+            <Button size="sm" variant="outline" onClick={clearAllFilters}>
+              Clear All
+            </Button>
+          </div>
+        )}
+
+        {/* Main Layout */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Filters Panel */}
+          <div className="lg:w-1/4 w-full bg-white p-4 rounded-2xl shadow-md">
+            <h2 className="text-xl font-semibold mb-4">Filters</h2>
+            <div>
+              <h3 className="text-sm font-medium mb-2">Technologies</h3>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {technologies.map((tech) => (
+                  <Button
+                    key={tech}
+                    variant={selectedTechnologies.includes(tech) ? "default" : "outline"}
+                    onClick={() => toggleFilter(tech, "technology")}
+                    style={{ backgroundColor: selectedTechnologies.includes(tech) ? "#1e3a8a" : "#f3f4f6", color: selectedTechnologies.includes(tech) ? "white" : "#4b5563", border: "none" }}
+                  >
+                    {tech}
+                  </Button>
+                ))}
+              </div>
+              <h3 className="text-sm font-medium mb-2">Domains</h3>
+              <div className="flex flex-wrap gap-2">
+                {domains.map((domain) => (
+                  <Button
+                    key={domain}
+                    variant={selectedDomains.includes(domain) ? "default" : "outline"}
+                    onClick={() => toggleFilter(domain, "domain")}
+                    style={{ backgroundColor: selectedDomains.includes(domain) ? "#1e3a8a" : "#f3f4f6", color: selectedDomains.includes(domain) ? "white" : "#4b5563", border: "none" }}
+                  >
+                    {domain}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Content Panel */}
+          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredDemos.map((demo, index) => (
+              <Card key={index} className="rounded-2xl shadow hover:shadow-lg transition">
+                <CardContent className="p-4">
+                  <h3 className="text-lg font-semibold mb-2">{demo.title}</h3>
+                  <p className="text-sm text-gray-600 mb-4">{demo.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {[...demo.technologies, ...demo.domains].map((tag) => (
+                      <span
+                        key={tag}
+                        className="bg-gray-200 text-xs rounded-full px-2 py-1"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <Button
+                    size="sm"
+                    style={{ backgroundColor: "#46D7AB", color: "white" }}
+                    onClick={() => window.open(demo.link, "_blank")}
+                  >
+                    View Demo
+                  </Button>
+                </CardContent>
+              </Card>
             ))}
           </div>
-        </div>
-        <style dangerouslySetInnerHTML={{ __html: `
-          @keyframes glowDot {
-            0%, 100% { background-color: transparent; }
-            50% { background-color: rgba(0, 255, 255, 0.1); box-shadow: 0 0 2px rgba(0, 255, 255, 0.2); }
-          }
-          .animate-glowDot {
-            animation: glowDot 6s ease-in-out infinite;
-          }
-        ` }} />
-      </div>
-
-      {/* Active Filters Bar */}
-      {(selectedTechnologies.length > 0 || selectedDomains.length > 0) && (
-        <div className="mb-4 flex items-center gap-3 flex-wrap">
-          <span className="text-sm font-medium">Active Filters:</span>
-          {[...selectedTechnologies, ...selectedDomains].map((tag) => (
-            <span key={tag} className="bg-gray-200 text-gray-800 text-xs px-3 py-1 rounded-full">
-              {tag}
-            </span>
-          ))}
-          <Button size="sm" variant="outline" onClick={clearAllFilters}>
-            Clear All
-          </Button>
-        </div>
-      )}
-
-      {/* Main Layout */}
-      <div className="flex gap-6">
-        {/* Filters Panel */}
-        <div className="w-1/4 bg-white p-4 rounded-2xl shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Filters</h2>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Technologies</h3>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {technologies.map((tech) => (
-                <Button
-                  key={tech}
-                  variant={selectedTechnologies.includes(tech) ? "default" : "outline"}
-                  onClick={() => toggleFilter(tech, "technology")}
-                  style={{ backgroundColor: selectedTechnologies.includes(tech) ? "#1e3a8a" : "#f3f4f6", color: selectedTechnologies.includes(tech) ? "white" : "#4b5563", border: "none" }}
-                >
-                  {tech}
-                </Button>
-              ))}
-            </div>
-            <h3 className="text-sm font-medium mb-2">Domains</h3>
-            <div className="flex flex-wrap gap-2">
-              {domains.map((domain) => (
-                <Button
-                  key={domain}
-                  variant={selectedDomains.includes(domain) ? "default" : "outline"}
-                  onClick={() => toggleFilter(domain, "domain")}
-                  style={{ backgroundColor: selectedDomains.includes(domain) ? "#1e3a8a" : "#f3f4f6", color: selectedDomains.includes(domain) ? "white" : "#4b5563", border: "none" }}
-                >
-                  {domain}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Content Panel */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredDemos.map((demo, index) => (
-            <Card key={index} className="rounded-2xl shadow hover:shadow-lg transition">
-              <CardContent className="p-4">
-                <h3 className="text-lg font-semibold mb-2">{demo.title}</h3>
-                <p className="text-sm text-gray-600 mb-4">{demo.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {[...demo.technologies, ...demo.domains].map((tag) => (
-                    <span
-                      key={tag}
-                      className="bg-gray-200 text-xs rounded-full px-2 py-1"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <Button
-                  size="sm"
-                  style={{ backgroundColor: "#46D7AB", color: "white" }}
-                  onClick={() => window.open(demo.link, "_blank")}
-                >
-                  View Demo
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
         </div>
       </div>
     </div>
