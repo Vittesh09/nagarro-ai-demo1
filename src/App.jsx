@@ -91,15 +91,15 @@ export default function AIDemos() {
             ))}
           </div>
         </div>
-        <style>{\`
-          @keyframes glowDot {
-            0%, 100% { background-color: transparent; }
-            50% { background-color: rgba(0, 255, 255, 0.1); box-shadow: 0 0 2px rgba(0, 255, 255, 0.2); }
-          }
-          .animate-glowDot {
-            animation: glowDot 6s ease-in-out infinite;
-          }
-        \`}</style>
+        <style dangerouslySetInnerHTML={{ __html: `
+  @keyframes glowDot {
+    0%, 100% { background-color: transparent; }
+    50% { background-color: rgba(0, 255, 255, 0.1); box-shadow: 0 0 2px rgba(0, 255, 255, 0.2); }
+  }
+  .animate-glowDot {
+    animation: glowDot 6s ease-in-out infinite;
+  }
+` }} />
       </div>
 
       {(selectedTechnologies.length > 0 || selectedDomains.length > 0) && (
