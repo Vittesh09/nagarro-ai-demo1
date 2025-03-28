@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "./components/ui/card";
 import { Button } from "./components/ui/button";
 
 const technologies = [
@@ -76,6 +76,7 @@ export default function AIDemos() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
+      {/* Header */}
       <div className="relative w-full h-40 bg-neutral-900 flex items-center justify-center rounded-xl mb-6 overflow-hidden">
         <h1 className="text-white text-3xl md:text-4xl font-bold z-10">
           Nagarro AI Demo
@@ -92,16 +93,17 @@ export default function AIDemos() {
           </div>
         </div>
         <style dangerouslySetInnerHTML={{ __html: `
-  @keyframes glowDot {
-    0%, 100% { background-color: transparent; }
-    50% { background-color: rgba(0, 255, 255, 0.1); box-shadow: 0 0 2px rgba(0, 255, 255, 0.2); }
-  }
-  .animate-glowDot {
-    animation: glowDot 6s ease-in-out infinite;
-  }
-` }} />
+          @keyframes glowDot {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: rgba(0, 255, 255, 0.1); box-shadow: 0 0 2px rgba(0, 255, 255, 0.2); }
+          }
+          .animate-glowDot {
+            animation: glowDot 6s ease-in-out infinite;
+          }
+        ` }} />
       </div>
 
+      {/* Active Filters Bar */}
       {(selectedTechnologies.length > 0 || selectedDomains.length > 0) && (
         <div className="mb-4 flex items-center gap-3 flex-wrap">
           <span className="text-sm font-medium">Active Filters:</span>
@@ -116,7 +118,9 @@ export default function AIDemos() {
         </div>
       )}
 
+      {/* Main Layout */}
       <div className="flex gap-6">
+        {/* Filters Panel */}
         <div className="w-1/4 bg-white p-4 rounded-2xl shadow-md">
           <h2 className="text-xl font-semibold mb-4">Filters</h2>
           <div>
@@ -147,6 +151,7 @@ export default function AIDemos() {
           </div>
         </div>
 
+        {/* Content Panel */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredDemos.map((demo, index) => (
             <Card key={index} className="rounded-2xl shadow hover:shadow-lg transition">
