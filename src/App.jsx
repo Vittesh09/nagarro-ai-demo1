@@ -108,7 +108,7 @@ export default function AIDemos() {
         <div className="mb-4 flex items-center gap-3 flex-wrap">
           <span className="text-sm font-medium">Active Filters:</span>
           {[...selectedTechnologies, ...selectedDomains].map((tag) => (
-            <span key={tag} className="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full">
+            <span key={tag} className="bg-neutral-200 text-neutral-800 text-xs px-3 py-1 rounded-full">
               {tag}
             </span>
           ))}
@@ -131,6 +131,7 @@ export default function AIDemos() {
                   key={tech}
                   variant={selectedTechnologies.includes(tech) ? "default" : "outline"}
                   onClick={() => toggleFilter(tech, "technology")}
+                  style={{ backgroundColor: selectedTechnologies.includes(tech) ? "#46D7AB" : "transparent", color: selectedTechnologies.includes(tech) ? "white" : "#46D7AB", borderColor: "#46D7AB" }}
                 >
                   {tech}
                 </Button>
@@ -143,6 +144,7 @@ export default function AIDemos() {
                   key={domain}
                   variant={selectedDomains.includes(domain) ? "default" : "outline"}
                   onClick={() => toggleFilter(domain, "domain")}
+                  style={{ backgroundColor: selectedDomains.includes(domain) ? "#46D7AB" : "transparent", color: selectedDomains.includes(domain) ? "white" : "#46D7AB", borderColor: "#46D7AB" }}
                 >
                   {domain}
                 </Button>
@@ -162,7 +164,7 @@ export default function AIDemos() {
                   {[...demo.technologies, ...demo.domains].map((tag) => (
                     <span
                       key={tag}
-                      className="bg-gray-200 text-xs rounded-full px-2 py-1"
+                      className="bg-neutral-200 text-xs rounded-full px-2 py-1"
                     >
                       {tag}
                     </span>
@@ -170,6 +172,7 @@ export default function AIDemos() {
                 </div>
                 <Button
                   size="sm"
+                  style={{ backgroundColor: "#46D7AB", color: "white" }}
                   onClick={() => window.open(demo.link, "_blank")}
                 >
                   View Demo
