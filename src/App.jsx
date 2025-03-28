@@ -108,7 +108,7 @@ export default function AIDemos() {
         <div className="mb-4 flex items-center gap-3 flex-wrap">
           <span className="text-sm font-medium">Active Filters:</span>
           {[...selectedTechnologies, ...selectedDomains].map((tag) => (
-            <span key={tag} className="bg-neutral-200 text-neutral-800 text-xs px-3 py-1 rounded-full">
+            <span key={tag} className="bg-gray-200 text-gray-800 text-xs px-3 py-1 rounded-full">
               {tag}
             </span>
           ))}
@@ -131,7 +131,7 @@ export default function AIDemos() {
                   key={tech}
                   variant={selectedTechnologies.includes(tech) ? "default" : "outline"}
                   onClick={() => toggleFilter(tech, "technology")}
-                  style={{ backgroundColor: selectedTechnologies.includes(tech) ? "#46D7AB" : "transparent", color: selectedTechnologies.includes(tech) ? "white" : "#46D7AB", borderColor: "#46D7AB" }}
+                  style={{ backgroundColor: selectedTechnologies.includes(tech) ? "#1e3a8a" : "#f3f4f6", color: selectedTechnologies.includes(tech) ? "white" : "#4b5563", border: "none" }}
                 >
                   {tech}
                 </Button>
@@ -144,7 +144,7 @@ export default function AIDemos() {
                   key={domain}
                   variant={selectedDomains.includes(domain) ? "default" : "outline"}
                   onClick={() => toggleFilter(domain, "domain")}
-                  style={{ backgroundColor: selectedDomains.includes(domain) ? "#46D7AB" : "transparent", color: selectedDomains.includes(domain) ? "white" : "#46D7AB", borderColor: "#46D7AB" }}
+                  style={{ backgroundColor: selectedDomains.includes(domain) ? "#1e3a8a" : "#f3f4f6", color: selectedDomains.includes(domain) ? "white" : "#4b5563", border: "none" }}
                 >
                   {domain}
                 </Button>
@@ -164,7 +164,7 @@ export default function AIDemos() {
                   {[...demo.technologies, ...demo.domains].map((tag) => (
                     <span
                       key={tag}
-                      className="bg-neutral-200 text-xs rounded-full px-2 py-1"
+                      className="bg-gray-200 text-xs rounded-full px-2 py-1"
                     >
                       {tag}
                     </span>
